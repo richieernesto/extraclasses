@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:extra_classes/model/channel_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 import '../screens/course_info_screen.dart';
 
-class CategoryCardItem extends StatelessWidget {
+class CategoryCardItem extends StatefulWidget {
   final String courseTitle;
   final String courseAuthor;
   final double coursePrice;
@@ -21,6 +22,11 @@ class CategoryCardItem extends StatelessWidget {
     @required this.imgUrl
   );
 
+@override
+_CategoryCardItemState createState() =>_CategoryCardItemState();
+}
+class _CategoryCardItemState extends State<CategoryCardItem>{
+  
   @override
   Widget build(BuildContext context) {
     currency(context){
@@ -35,9 +41,9 @@ class CategoryCardItem extends StatelessWidget {
             InkWell(
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => CourseInfoScreen(
-                  product_title: courseTitle, 
-                  thumbnail_url: imgUrl, 
-                  price: coursePrice, 
+                  product_title: widget.courseTitle, 
+                  thumbnail_url: widget.imgUrl, 
+                  price: widget.coursePrice, 
                   description: "Lorem Ipsum"),));
               },
             child: Container(
@@ -51,7 +57,7 @@ class CategoryCardItem extends StatelessWidget {
               margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
               child: Column(             
                 children: [
-                  Text(courseTitle,
+                  Text(widget.courseTitle,
                   textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis, 
                     style: TextStyle(
@@ -63,16 +69,16 @@ class CategoryCardItem extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  Text(courseAuthor, style:TextStyle(
+                  Text(widget.courseAuthor, style:TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold
                   ),),
                   Text(
-                    courseClass
+                    widget.courseClass
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
-                    child: Text("${currency(context).currencySymbol } $coursePrice",)),
+                    child: Text("${currency(context).currencySymbol } $widget.coursePrice",)),
                 ],
               ),
             ),)
@@ -91,7 +97,7 @@ class CategoryCardItem extends StatelessWidget {
             width: 65,
             height: MediaQuery.of(context).size.width/9,
             //must be loaded with course image
-            child:  Image.asset("lib/assets/images/bgimage2.jpg",),
+            child:  Image.network(widget.imgUrl),
           ),
         )
       ],

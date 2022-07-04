@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../model/channel_info.dart';
+import '../model/video_details.dart';
+
 class CourseInfoScreen extends StatefulWidget {
   final String product_title;
   final String thumbnail_url;
@@ -23,6 +26,13 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
   double opacity1 = 0.0;
   double opacity2 = 0.0;
   double opacity3 = 0.0;
+  ChannelInfo _channelInfo = ChannelInfo();
+   VideosList _videosList  =VideosList();
+   ScrollController ? _scrollController;
+   Item _item = Item();
+  bool _isloading = true ;
+  String _playtlistidd = "";
+  String _nextTokenPage ="";
   @override
   void initState() {
     animationController = AnimationController(
@@ -30,6 +40,7 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
     animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: animationController!,
         curve: Interval(0, 1.0, curve: Curves.fastOutSlowIn)));
+        
     setData();
     super.initState();
   }
@@ -65,7 +76,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1.2,
-                  child: Image.asset(widget.thumbnail_url),
+                  // image title.
+                  //
+                  //
+                  child: Image.network(widget.thumbnail_url),
                 ),
               ],
             ),
@@ -104,6 +118,10 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                             padding:
                                 EdgeInsets.only(top: 32.0, left: 18, right: 16),
                             child: Text(
+                              // course Title
+                              //
+                              //
+                              //
                               widget.product_title,
                               textAlign: TextAlign.left,
                               style: TextStyle(
@@ -176,6 +194,9 @@ class _CourseInfoScreenState extends State<CourseInfoScreen>
                                 padding: const EdgeInsets.only(
                                     left: 16, right: 16, top: 8, bottom: 8),
                                 child: Text(
+                                  //desc....
+                                  // 
+                                  //
                                   widget.description,
                                   textAlign: TextAlign.justify,
                                   style: TextStyle(
